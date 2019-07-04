@@ -1,10 +1,27 @@
 /*
 ||||================================================||||
-||||================================================||||
 ||||   Teenpatti Console Game by Rohit Kharkongor   ||||
 ||||================================================||||
-||||================================================||||
+
+	Teenpatti (also spelled Teenpathi and sometimes referred to as Flash) is a gambling card 
+game that originated in India and became popular in Southeast Asia. Teenpatti is India’s twist on 3 card poker 
+and is identical to 3-card brag which is popular in the UK.
+
+RULE OF THE GAME:
+1) Trail (three of a kind): Three cards of the same rank. Three aces are the highest and three 2’s are the lowest. 
+2) Pure Sequence (Straight Flush): Three consecutive cards of the same suit. 
+3) Sequence (Straight): Three consecutive cards not all in the same suit. 
+4) Color (Flush): Three cards of the same suit that are not in sequence. When comparing two colors, first compare 
+   the highest card. If these are equal, compare the second and if these are equal compare the lowest. Highest flush 
+   is A-K-J and the lowest flush is 5-3-2. 
+5) Pair (two of a kind): Two cards of the same rank. Between two pairs, the one with the higher value is the winner. 
+   If the pairs are of equal value then the kicker card determines the winner. The highest pair is A-A-K and the lowest 
+   is 2-2-3. 
+6) High Card: A hand in which the three cards are not in sequence, not all the same suit and no two cards have the same 
+   rank. If two players share a common high card, the next highest card is used to determine the winner. The best high 
+   card hand would be an AKJ of different suits and the worst is 5-3-2. 
 */
+
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -1622,6 +1639,12 @@ public:
 };
 
 int main(void){
+    unsigned char v[300]={
+222,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,221,10,
+222,236,32,84,69,69,78,80,65,84,84,73,40,51,32,66,82,65,71,41,32,67,65,82,68,32,71,65,77,69,46,32,236,221,10,
+222,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,236,221,10
+        };
+    cout << v;
     srand(time(0));
     Card c1, c2;
     bool istrue;
@@ -1657,10 +1680,25 @@ int main(void){
     }
 
     //DISPLAYING THE CARDS//
-    cout << "*** PLAYER #1 ***" << endl;
+    unsigned char value1[300]={
+        222,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,221,10,
+        222,177,177,177,177,177,32,80,76,65,89,69,82,32,35,49,32,177,177,177,177,177,177,177,221,10,
+        222,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,221,10
+    }; cout << value1;
+
     c1.displaycard();
-    cout << "-----------------\n";
-    cout << "*** PLAYER #2 ***" << endl;
+
+    unsigned char value0[300]={
+       244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,
+244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244,244
+    }; cout << value0;
+
+    cout << endl << endl;
+    unsigned char value2[300]={
+        222,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,221,10,
+        222,177,177,177,177,177,32,80,76,65,89,69,82,32,35,50,32,177,177,177,177,177,177,177,221,10,
+        222,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,177,221,10
+    };cout << value2;
     c2.displaycard();
 
     //SORTING THE ARRAYS//
@@ -1670,7 +1708,7 @@ int main(void){
     // CHECK THE WINNER //
     /* The following are the ways how the player can win:
        1)Doubling(Trial) 2)Run(Pure Sequence) 3)Flush 4)Pair 5)High Card */
-
+    int winner = 0;
     //check if two player has doubling
     if(c1.checkDoubling(c1) && c2.checkDoubling(c2)){
         cout << "Both players has doubling." << endl;
@@ -1679,11 +1717,13 @@ int main(void){
         }
         else{
             cout << "Player 2 won via DOUBLING(TRIAL)" << endl;
+            winner++;
         }
     }else if(c1.checkDoubling(c1)){
         cout << "Player 1 won via DOUBLING(TRIAL)" << endl;
     }else if(c2.checkDoubling(c2)){
         cout << "Player 2 won via DOUBLING(TRIAL)" << endl;
+        winner++;
     }
     //check two player's max run winner
     else if(c1.checkRun(c1) && c2.checkRun(c2)){
@@ -1693,11 +1733,13 @@ int main(void){
         }
         else if(c1.checkingRunMax(c2) == 0){
             cout << "Player 2 won via RUN(Pure Sequence)" << endl;
+            winner++;
         }
     }else if(c1.checkRun(c1)){
         cout << "Player 1 won via RUN(Pure Sequence)" << endl;
     }else if(c2.checkRun(c2)){
         cout << "Player 2 won via RUN(Pure Sequence)" << endl;
+        winner++;
     }
     //check two player's max sequence winner
     else if(c1.checkSequence(c1) && c2.checkSequence(c2)){
@@ -1707,11 +1749,13 @@ int main(void){
         }
         else if(c1.checkingSequenceMax(c2) == 0){
             cout << "Player 2 won via SEQUENCE" << endl;
+            winner++;
         }
     }else if(c1.checkSequence(c1)){
         cout << "Player 1 won via SEQUENCE" << endl;
     }else if(c2.checkSequence(c2)){
         cout << "Player 2 won via SEQUENCE" << endl;
+        winner++;
     }
     //check two player's max flush winner
     else if(c1.checkFlush(c1) && c2.checkFlush(c2)){
@@ -1721,11 +1765,13 @@ int main(void){
         }
         else if(c1.checkingFlushMax(c2) == 0){
             cout << "Player 2  won via FLUSH" << endl;
+            winner++;
         }
     }else if(c1.checkFlush(c1)){
         cout << "Player 1  won via FLUSH" << endl;
     }else if(c2.checkFlush(c2)){
         cout << "Player 2  won via FLUSH" << endl;
+        winner++;
     }
     //check if player's has pair card or not
     else if(c1.checkPair(c1) && c2.checkPair(c2)){
@@ -1735,17 +1781,33 @@ int main(void){
         }
         else if(c1.checkingPairMax(c2) == 0){
             cout << "Player 2 won via PAIR" << endl;
+            winner++;
         }
     }else if(c1.checkPair(c1)){
         cout << "Player 1 won via PAIR" << endl;
     }else if(c2.checkPair(c2)){
         cout << "Player 2 won via PAIR" << endl;
+        winner++;
     }else{
         if(c1.checkHighCard(c2)==true){
             cout << "Player 1 won via HIGH CARD" << endl;
         } else if(c1.checkHighCard(c2)==false){
             cout << "Player 2 won via HIGH CARD" << endl;
+            winner++;
         }
     }
-
+    cout << endl;
+    if(winner > 0){
+        unsigned char v1[300]={
+            222,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,221,10,
+            222,32,32,67,79,78,71,82,65,84,83,32,80,76,65,89,69,82,32,35,50,32,32,32,221,10,
+            222,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,221,10
+        };cout << v1;
+    }else{
+        unsigned char v2[300]={
+            222,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,221,10,
+            222,32,32,67,79,78,71,82,65,84,83,32,80,76,65,89,69,82,32,35,49,32,32,32,221,10,
+            222,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,233,221,10
+        };cout << v2;
+    }
 }
